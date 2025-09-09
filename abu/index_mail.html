@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng ký nhận thông tin</title>
+</head>
+<body>
+  <h2>Đăng ký nhận thông tin</h2>
+  <form id="contact-form">
+    <label for="name">Họ và tên:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <button type="submit">Gửi thông tin</button>
+  </form>
+
+  <p id="msg"></p>
+
+
+
+<!-- ----------- Using link have code to automatic (java scrip) ------------ -->
+  <script>
+    
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzScLmYrTiTDqZAqolg4aDqhPj7OUmzW648tE8Jr9Th57hDXKhD-SS5CWY4LsyITgPh/exec"; // URL Apps Script của bạn
+    const form = document.getElementById("contact-form");
+    const msg = document.getElementById("msg");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      fetch(scriptURL, { method: "POST", body: new FormData(form)})
+        .then(response => {
+          msg.innerHTML = "✅ Đăng ký thành công! Vui lòng kiểm tra email.";
+          form.reset();
+        })
+        .catch(error => {
+          msg.innerHTML = "❌ Có lỗi xảy ra, vui lòng thử lại.";
+          console.error("Error!", error.message);
+
+        });
+    });
+  </script>
+</body>
+</html>
